@@ -1,4 +1,4 @@
 Gemfile.lock
 tmp/log/*
 *.sublime*
-ext/
+ext/**/**/setting.yml

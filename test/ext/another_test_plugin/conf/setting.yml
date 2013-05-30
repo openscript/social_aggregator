@@ -1,0 +1,12 @@
+defaults: &defaults
+  plugin_name: 'Another Test Plugin'
+  class_name: 'AnotherTestPlugin'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
