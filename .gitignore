@@ -1,4 +1,6 @@
 Gemfile.lock
 tmp/log/*
 *.sublime*
+*.sqlite3
+
 ext/**/**/setting.yml

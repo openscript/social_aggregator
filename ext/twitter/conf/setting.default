@@ -1,0 +1,14 @@
+defaults: &defaults
+  plugin_name: 'Twitter'
+  class_name: 'Twitter'
+  consumer_key: '321'
+  consumer_secret: '123'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

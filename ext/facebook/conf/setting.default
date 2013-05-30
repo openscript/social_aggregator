@@ -1,0 +1,12 @@
+defaults: &defaults
+  plugin_name: 'Facebook'
+  class_name: 'Facebook'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

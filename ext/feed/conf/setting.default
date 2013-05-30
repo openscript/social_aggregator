@@ -1,0 +1,12 @@
+defaults: &defaults
+  plugin_name: 'Feed Reader'
+  class_name: 'FeedReader'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

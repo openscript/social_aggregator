@@ -1,0 +1,12 @@
+defaults: &defaults
+  plugin_name: 'Google+'
+  class_name: 'GooglePlus'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
