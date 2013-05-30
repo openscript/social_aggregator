@@ -1,0 +1,15 @@
+defaults: &defaults
+  working_units: 10
+  plugin_folder: 'ext'
+  plugin_configuration: 'conf/setting.yml'
+  plugin_class_file: 'Plugin.rb'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  plugin_folder: 'test/ext'
+
+production:
+  <<: *defaults
