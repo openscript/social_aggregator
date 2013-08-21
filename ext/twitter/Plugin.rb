@@ -10,5 +10,4 @@ class Twitter < PluginFrame
 		#	c.consumer_secret = setting.consumer_secret
 		#end
 	end
-
 end

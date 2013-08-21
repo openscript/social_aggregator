@@ -1,0 +1,7 @@
+%plugins
+  %defined
+    - locals[:plugins].defined_plugins.each do |p|
+      %name= p.name
+  %loaded
+    - locals[:plugins].loaded_plugins.each do |p|
+      %name= p.class.name

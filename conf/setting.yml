@@ -1,5 +1,6 @@
 defaults: &defaults
   working_units: 10
+  aggregate_timer: 60
   plugin_folder: 'ext'
   plugin_configuration: 'conf/setting.yml'
   plugin_class_file: 'Plugin.rb'

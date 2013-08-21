@@ -32,6 +32,20 @@ class PluginManager
 		@plugin_instances
 	end
 
+	def run
+		logger.debug 'Aggregating data from plugins.'
+
+		if loaded_plugins.count <= 0
+			logger.info 'No plugins loaded to aggregate data from.'
+			Aggregator::stop
+			return
+		end
+
+		loaded_plugins.each do |p|
+			p.run
+		end
+	end
+
 	private
 
 	def initialize_plugins

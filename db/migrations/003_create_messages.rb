@@ -6,7 +6,7 @@ class CreateMessages < ActiveRecord::Migration
 			t.string :title
 			t.text :message
 
-			t.references :plugin
+			t.references :plugin, :null => false
 
 			t.timestamps
 		end

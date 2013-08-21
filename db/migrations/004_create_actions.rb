@@ -1,10 +1,10 @@
 require 'active_record'
 
-class CreateFollowers < ActiveRecord::Migration
+class CreateActions < ActiveRecord::Migration
 	def change
-		create_table :followers do |t|
+		create_table :actions do |t|
 			t.string :name, :null => false
-			t.string :url
+			t.text :description
 
 			t.references :plugin, :null => false
 

@@ -1,10 +1,13 @@
-require 'sinatra/base'
-require 'webrick'
-require 'rack'
-
+require 'Aggregator'
 require 'app/utils/Logging'
 require 'app/controllers/MessagesController'
+require 'app/controllers/PluginsController'
 require 'conf/Router'
+
+require 'sinatra/base'
+require 'sinatra/reloader' if Aggregator::environment == :development
+require 'webrick'
+require 'rack'
 
 class ServerInitializer 
 	include Logging
@@ -22,6 +25,10 @@ class ServerInitializer
 
 			map '/messages' do 
 				run MessagesController.new
+			end
+
+			map '/plugins' do 
+				run PluginsController.new
 			end
 		end
 

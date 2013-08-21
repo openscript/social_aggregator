@@ -37,6 +37,9 @@ class Aggregator
 		DatabaseInitializer::start(options.environment)
 
 		unless options.environment == :test
+			# Set up plugin manager
+			@@plugin_manager = PluginManager.new unless options.console
+
 			# Set up server
 			ServerInitializer::start
 
@@ -61,18 +64,19 @@ class Aggregator
 	end
 
 	def self.plugin_manager
-		@plugin_manager
+		@@plugin_manager
 	end
 
 	def start
-		@plugin_manager = PluginManager.new
-
 		logger.info "Aggregator is up and running"
 
 		while true
-			sleep 5
+			@@plugin_manager.run
 			break if @stop
+			logger.debug "Next aggregation in #{setting.aggregate_timer} seconds."
+			sleep setting.aggregate_timer
 		end
+
 		logger.info "Stopping aggregator"
 	end
 end

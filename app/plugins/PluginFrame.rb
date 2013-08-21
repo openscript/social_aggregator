@@ -1,5 +1,10 @@
 require 'celluloid/autostart'
 
+require 'app/models/Plugin'
+require 'app/models/Message'
+require 'app/models/Follower'
+require 'app/models/AggregateAction'
+
 require 'app/controllers/MessagesController'
 require 'app/utils/Logging'
 require 'app/utils/Setting'
@@ -9,11 +14,20 @@ class PluginFrame
 	include Setting
 	include Logging
 
-	def initialize(plugin_model)
-		@model = plugin_model
+	finalizer :unload
 
-		settings_path @model.conf_path
+	def initialize(plugin_model)
+		@plugin = plugin_model
+
+		settings_path @plugin.conf_path
 	end
 
-	
+	def run
+		logger.warn "The plugin #{@plugin.name} is not implemented!"
+		terminate
+	end
+
+	def unload
+		logger.warn "The plugin #{@plugin.name} is terminating!"
+	end
 end

@@ -3,7 +3,6 @@ require 'app/plugins/PluginFrame'
 require 'lastfm'
 
 class LastFm < PluginFrame
-
 	def initialize(plugin_model)
 		super plugin_model
 
@@ -25,4 +24,18 @@ class LastFm < PluginFrame
 		end
 	end
 
+	def run
+		aggregate_weekly_summary
+	end
+
+	private
+
+	def aggregate_weekly_summary
+		name = 'weekly_summary'
+		if AggregateAction.get_time_since_last_execution(name, @plugin) < 1.week
+			logger.debug "Aggregate weekly summary"
+			@lastfm.user.get_loved_tracks(:user => setting.username)
+		end
+		nil
+	end
 end

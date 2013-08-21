@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rake'
 gem 'celluloid'
+gem 'timers'
 gem 'webrick'
 gem 'sinatra'
 gem 'sinatra-contrib'
@@ -10,6 +11,7 @@ gem 'activesupport'
 gem 'settingslogic'
 gem 'haml'
 gem 'awesome_print'
+gem 'tzinfo-data'
 
 platform :jruby do
 	gem 'activerecord-jdbcsqlite3-adapter'
