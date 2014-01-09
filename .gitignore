@@ -1,6 +1,5 @@
 # no temp files
 Gemfile.lock
-tmp/log/*
 *.sublime*
 *.sqlite3
 
