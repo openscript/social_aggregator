@@ -2,7 +2,7 @@ require 'Aggregator'
 require 'app/utils/Logging'
 require 'app/controllers/MessagesController'
 require 'app/controllers/PluginsController'
-require 'conf/Router'
+require 'conf/router'
 
 require 'sinatra/base'
 require 'sinatra/reloader' if Aggregator::environment == :development
