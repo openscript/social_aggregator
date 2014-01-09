@@ -32,7 +32,7 @@ You can utilize the aggregator directly via commandline. It uses a built in webr
 `aggregator.rb [arguments]`
 
 | shortcut | parameter     | description                                             |
-| -------- |:-------------:| -------------------------------------------------------:|
+|:--------:|:------------- |:------------------------------------------------------- |
 | -e       | --environment | Select an environment (development, test or production) |
 | -q       | --quiet       | No output to stdout                                     |
 | -v       | --verbose     | Run verbosely                                           |
