@@ -31,14 +31,14 @@ You can utilize the aggregator directly via commandline. It uses a built in webr
 
 `aggregator.rb [arguments]`
 
-| shortcut | parameter     | description                                             |
-|:--------:|:------------- |:------------------------------------------------------- |
-| -e       | --environment | Select an environment (development, test or production) |
-| -q       | --quiet       | No output to stdout                                     |
-| -v       | --verbose     | Run verbosely                                           |
-| -c       | --console     | Start a console session                                 |
-| -h       | --help        | Show this message                                       |
-|          | --version     | Show version                                            |
+| shortcut | parameter       | description                                             |
+|:--------:|:--------------- |:------------------------------------------------------- |
+| `-e`     | `--environment` | Select an environment (development, test or production) |
+| `-q`     | `--quiet`       | No output to stdout                                     |
+| `-v`     | `--verbose`     | Run verbosely                                           |
+| `-c`     | `--console`     | Start a console session                                 |
+| `-h`     | `--help`        | Show this message                                       |
+|          | `--version`     | Show version                                            |
 
 ### Problems
 Usually it's a good idea to have a look into the log files, especially the `tmp/log/aggregator.log` could be interesting, while the software is quite talkative. 
