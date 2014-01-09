@@ -30,14 +30,15 @@ xml and callbacks
 You can utilize the aggregator directly via commandline. It uses a built in webrick server. It's planned that other servers can be used, but that is not implemented yet.
 
 `aggregator.rb [arguments]`
-| shortcut | parameter     | description  |
-| -------- |:-------------:| ------------:|
+
+| shortcut | parameter     | description                                             |
+| -------- |:-------------:| -------------------------------------------------------:|
 | -e       | --environment | Select an environment (development, test or production) |
-| -q       | --quiet       | No output to stdout |
-| -v       | --verbose     | Run verbosely |
-| -c       | --console     | Start a console session |
-| -h       | --help        | Show this message |
-|          | --version     | Show version |
+| -q       | --quiet       | No output to stdout                                     |
+| -v       | --verbose     | Run verbosely                                           |
+| -c       | --console     | Start a console session                                 |
+| -h       | --help        | Show this message                                       |
+|          | --version     | Show version                                            |
 
 ### Problems
 Usually it's a good idea to have a look into the log files, especially the `tmp/log/aggregator.log` could be interesting, while the software is quite talkative. 
@@ -47,3 +48,5 @@ There is a prepared command line (IRB) built in. You'll have acces from there to
 
 - the models
 - the controllers
+
+###
