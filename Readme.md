@@ -34,9 +34,9 @@ The following rake tasks are defined:
 
 `rake [task]`
 
-| task     | parameter                              | description                 |
-|:--------:|:-------------------------------------- |:----------------------------|
-| migrate  | `[ENV=(development\|test\|production)]` | Initialize/Migrate database |
+| task     | parameter                                                  | description                 |
+|:--------:|:---------------------------------------------------------- |:----------------------------|
+| migrate  | <code>[ENV=(development&#124;test&#124;production)]</code> | Initialize/Migrate database |
 
 
 ### Run with built-in server
