@@ -18,6 +18,6 @@ class ConsoleInitializer
 		initializer.logger.info 'Models loaded'
 
 		puts "Aggregator console:"
-		IRB.start
+		IRB.start '.'
 	end
 end

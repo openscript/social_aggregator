@@ -37,7 +37,7 @@ class ArgumentParser
 			end
 
 			parser.on('--version', 'Show version') do
-				print Aggregator::version
+				puts Aggregator::VERSION
 				exit
 			end
 

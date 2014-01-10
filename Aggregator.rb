@@ -8,13 +8,14 @@ require 'app/utils/ArgumentParser'
 require 'app/utils/Logging'
 require 'app/utils/Setting'
 
+
 # Main class
 class Aggregator
 	include Logging
 	include Setting
 
 	VERSION = '0.0.1'
-
+	
 	@@environment = :production
 	@stop = false
 
