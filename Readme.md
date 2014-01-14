@@ -3,17 +3,17 @@ Dear followers!
 
 There are many social networks out there. This software aggregates information from different networks to one xml-stream, which you can reuse. For instance on your personal website to show some of your activity to your audience or as your personal news feed.
 
-## Sources
+## Providers
 Basically the system is designed to be extensible via plugins. It's shipped with the following ones:
 
-### Networks
+### Social Networks
 - Facebook
 - YouTube
 - Google+
 - Twitter
 - LastFM
 
-### Others
+### Other
 - RSS feeds
 
 ## Outputs
@@ -34,9 +34,9 @@ The following rake tasks are defined:
 
 `rake [task]`
 
-| task       | parameter                                                  | description                 |
-|:----------:|:---------------------------------------------------------- |:----------------------------|
-| `migrate`  | <code>env=(development&#124;test&#124;production)</code>   | Initialize/Migrate database |
+| task       | parameter                                                                            | description                 |
+|:----------:|:------------------------------------------------------------------------------------ |:----------------------------|
+| `migrate`  | <code>[env=(development&#124;test&#124;production)]</code> (default: `production`)   | Initialize/Migrate database |
 
 
 ### Run with built-in server

@@ -1,5 +1,5 @@
 require 'active_record'
 
 class Follower < ActiveRecord::Base
-	belongs_to :plugin
+	belongs_to :action
 end
