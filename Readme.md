@@ -57,7 +57,9 @@ You can utilize the aggregator directly via commandline. It uses a built in webr
 Usually it's a good idea to have a look into the log files, especially the `tmp/log/aggregator.log` could be interesting, while the software is quite talkative. You should also consider to utilize the interactive ruby shell.
 
 ## Development
-There is a prepared command line (IRB) built in. You'll have acces from there to:
+Please have a look into the [wiki](https://github.com/openscript/social_aggregator/wiki).
+
+There is a built-in command line (IRB). You'll have access from there to:
 
 - the models
 - the controllers
