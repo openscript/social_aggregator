@@ -17,7 +17,10 @@ class ConsoleInitializer
 
 		initializer.logger.info 'Models loaded'
 
+		ENV['IRBRC'] = '.irbrc'
+		initializer.logger.info 'Environment variables set'
+
 		puts "Aggregator console:"
-		IRB.start '.'
+		IRB.start
 	end
 end

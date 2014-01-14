@@ -37,4 +37,4 @@ gem 'twitter' # https://rubygems.org/gems/twitter
 gem 'fb_graph'
 gem 'google_plus'
 gem 'lastfm' # https://rubygems.org/gems/lastfm
-#gem 'feedzirra' #http://beginrescue.blogspot.ch/2010/07/installing-curb-with-ruby-191-in.html
+gem 'feedzirra' #http://beginrescue.blogspot.ch/2010/07/installing-curb-with-ruby-191-in.html

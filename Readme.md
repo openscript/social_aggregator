@@ -27,16 +27,17 @@ Please write a bug report, if errors occure.
 2. Get your version of the social aggregator and change to it's directory
 3. Run `bundle install` to install all the necesserily gems
 4. Run `rake install` to get the social aggregator ready
-5. Execute the `Aggregator.rb` (e. g. `jruby Aggregator.rb -h`) and have fun!
+5. Set up and configure plugins/providers
+6. Execute the `Aggregator.rb` (e. g. `jruby Aggregator.rb -h`) and have fun!
 
 ### Tasks
 The following rake tasks are defined:
 
 `rake [task]`
 
-| task       | parameter                                                                            | description                 |
-|:----------:|:------------------------------------------------------------------------------------ |:----------------------------|
-| `migrate`  | <code>[env=(development&#124;test&#124;production)]</code> (default: `production`)   | Initialize/Migrate database |
+| task       | parameter        | description                 |
+|:----------:|:---------------- |:----------------------------|
+| `migrate`  | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`) | Initialize/Migrate database |
 
 
 ### Run with built-in server
