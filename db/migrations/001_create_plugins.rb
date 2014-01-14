@@ -7,7 +7,6 @@ class CreatePlugins < ActiveRecord::Migration
 			t.string :class_name, :null => false
 			t.string :conf_path, :null => false
 			t.string :class_path, :null => false
-			t.boolean :active, :null => false, :default => true
 
 			t.timestamps
 		end

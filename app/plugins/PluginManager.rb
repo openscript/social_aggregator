@@ -63,7 +63,7 @@ class PluginManager
 		logger.info "Found #{plugins.count} valid plugins."
 
 		plugins.each do |p|
-			plugin = Plugin.find_or_initialize_by_name p.name
+			plugin = Plugin.find_or_initialize_by(:name => p.name)
 
 			plugin.update_attributes(
 				:class_name => p.class_name,
@@ -107,7 +107,7 @@ class PluginManager
 
 		if Aggregator::environment == :development
 			plugins.each do |p|
-				logger.debug "Possible plugin in folder #{p} found."
+				logger.debug "Found plugin folder #{p}. Validating plugin now."
 			end
 		end
 

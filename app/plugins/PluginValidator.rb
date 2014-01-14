@@ -40,9 +40,17 @@ class PluginValidator
 			return
 		end
 
+		# Check if plugin is active.
+		if conf[Aggregator::environment.to_s].has_key? 'active'
+			unless conf[Aggregator::environment.to_s]['active']
+				validator.logger.warn "The plugin (#{path}) has been set to be inactive."
+				return
+			end
+		end
+
 		# Check if there are the required options.
 		REQUIRED_ATTR.each do |a|
-			unless conf[Aggregator::environment.to_s].has_key?(a)
+			unless conf[Aggregator::environment.to_s].has_key? a
 				validator.logger.error "Unfortunately the plugin configuration file #{conf_path} dosen't include an attribute, which is called #{a} and required."
 				return
 			end
@@ -54,12 +62,6 @@ class PluginValidator
 		plugin.class_name = conf[Aggregator::environment.to_s]['class_name']
 		plugin.conf_path = conf_path
 		plugin.class_path = class_path
-
-		# Check if plugin is set to be inactive.
-		unless active.nil?
-			plugin.active = active
-			validator.logger.debug "Plugin has been set inactive." unless active
-		end
 
 		validator.logger.debug "Plugin #{conf['plugin_name']} in #{path} is valid and the definition has been loaded."
 
