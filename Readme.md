@@ -37,7 +37,7 @@ The following rake tasks are defined:
 
 | task       | parameter        | description                 |
 |:----------:|:---------------- |:----------------------------|
-| `migrate`  | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`) | Initialize/Migrate database |
+| `migrate`  | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`)<br /><code>[ver=(*version number*)]</code><br /> (default: last version) | Initialize/Migrate database |
 
 
 ### Run with built-in server

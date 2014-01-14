@@ -12,6 +12,6 @@ class CreateActions < ActiveRecord::Migration
 			t.timestamps
 		end
 
-		add_index(:actions, [:name, :plugin], :unique => true)
+		add_index(:actions, [:name, :plugin_id], :unique => true)
 	end
 end
