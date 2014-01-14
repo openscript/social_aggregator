@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'bundler', '~> 1.5.2'
 gem 'rake'
 gem 'celluloid'
 gem 'timers'
