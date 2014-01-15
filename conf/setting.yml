@@ -1,8 +1,8 @@
 defaults: &defaults
   working_units: 10
   aggregate_timer: 60
-  server_port: 12001
   server_bind: 'localhost'
+  server_port: 12001
   plugin_folder: 'ext'
   plugin_configuration: 'conf/setting.yml'
   plugin_class_file: 'Plugin.rb'

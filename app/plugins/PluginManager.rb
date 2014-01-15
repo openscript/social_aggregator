@@ -37,7 +37,7 @@ class PluginManager
 
 		if loaded_plugins.count <= 0
 			logger.info 'No plugins loaded to aggregate data from.'
-			Aggregator::stop
+			Aggregator::shutdown
 			return
 		end
 

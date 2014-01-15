@@ -19,7 +19,7 @@ class Aggregator
 	VERSION = '0.0.1'
 	
 	@@environment = :production
-	@stop = false
+	@@stop = false
 
 	def initialize(arguments)
 		options = ArgumentParser.parse(arguments)
@@ -62,8 +62,8 @@ class Aggregator
 		VERSION
 	end
 
-	def self.stop
-		@stop = true
+	def self.shutdown
+		@@stop = true
 	end
 
 	def self.plugin_manager
@@ -75,15 +75,16 @@ class Aggregator
 
 		while true
 			@@plugin_manager.run
-			if self.class.stop
-				logger.info "Stopping aggregation now, because there are no plugins to aggregate from."
+			if @@stop
+				logger.info "Stopping aggregation now, due request to stop."
 				break
 			end
 			logger.debug "Next aggregation in #{setting.aggregate_timer} seconds."
+
 			sleep setting.aggregate_timer
 		end
 
-		logger.info "Stopping aggregator"
+		logger.info "Stopping aggregator - Good bye!"
 	end
 end
 
