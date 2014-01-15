@@ -1,3 +1,5 @@
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
 require 'yaml'
 
 require 'conf/initializers/DatabaseInitializer'

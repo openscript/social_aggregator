@@ -1,5 +1,7 @@
+# Use jdbc-adapter on a jruby platform. (for example: jdbcsqlite3)
+
 defaults: &defaults
-  adapter: jdbcsqlite3
+  adapter: sqlite3
   database: db/production.sqlite3
   pool: 5
   timeout: 5000

@@ -1,26 +1,34 @@
 source 'https://rubygems.org'
 
 gem 'bundler', '~> 1.5.2'
-gem 'rake'
+gem 'rake', '>= 10'
 gem 'celluloid'
 gem 'timers'
 gem 'webrick'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'activerecord'
-gem 'activesupport'
 gem 'settingslogic'
-gem 'haml'
+gem 'haml', '>= 4'
 gem 'awesome_print'
 gem 'tzinfo-data'
 
-platform :jruby do
+# platform switch
+if RUBY_PLATFORM =~ /java/ #jruby
 	gem 'activerecord-jdbcsqlite3-adapter'
-end
+	gem 'activerecord'
+	gem 'activesupport'
+	
+	group :development do
+		gem 'ruby-debug'
+	end
+else # ruby
+	gem 'sqlite3'
+	gem 'activerecord', '>= 4'
+	gem 'activesupport', '>= 4'
 
-platform :ruby do
-	gem 'sqlite3-ruby'
-	gem 'irb'
+	group :development do
+		gem 'debugger'
+	end
 end
 
 group :test do
@@ -28,13 +36,16 @@ group :test do
 end
 
 group :development do
-	gem 'ruby-debug'
 	gem 'yard'
 end
 
-# Plugin requirements
+# plugin dependencies 
+
 gem 'twitter' # https://rubygems.org/gems/twitter
 gem 'fb_graph'
 gem 'google_plus'
 gem 'lastfm' # https://rubygems.org/gems/lastfm
-gem 'feedzirra' #http://beginrescue.blogspot.ch/2010/07/installing-curb-with-ruby-191-in.html
+
+unless RUBY_PLATFORM =~ /java/ #ruby
+	gem 'feedzirra' # Curb is not available for jruby, so this gem won't work with jruby.
+end
