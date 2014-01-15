@@ -39,18 +39,18 @@ class Aggregator
 		# Set up orm
 		DatabaseInitializer::start(options.environment)
 
-		unless options.environment == :test
+		unless options.environment == :test || options.console
 			# Set up plugin manager
-			@@plugin_manager = PluginManager.new unless options.console
+			@@plugin_manager = PluginManager.new 
 
 			# Set up server
 			ServerInitializer::start
+			
+			start
+		end
 
-			if options.console
-				ConsoleInitializer::start(options.environment)
-			else
-				start
-			end
+		if options.console
+			ConsoleInitializer::start(options.environment)
 		end
 	end
 
@@ -75,7 +75,10 @@ class Aggregator
 
 		while true
 			@@plugin_manager.run
-			break if @stop
+			if self.class.stop
+				logger.info "Stopping aggregation now, because there are no plugins to aggregate from."
+				break
+			end
 			logger.debug "Next aggregation in #{setting.aggregate_timer} seconds."
 			sleep setting.aggregate_timer
 		end

@@ -43,7 +43,7 @@ class PluginValidator
 		# Check if plugin is active.
 		if conf[Aggregator::environment.to_s].has_key? 'active'
 			unless conf[Aggregator::environment.to_s]['active']
-				validator.logger.warn "The plugin (#{path}) has been set to be inactive."
+				validator.logger.info "The plugin (#{path}) has been set to be inactive."
 				return
 			end
 		end
