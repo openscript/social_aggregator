@@ -14,9 +14,7 @@ class ServerInitializer
 	include Logging
 	include Setting
 
-	def self.start
-		initializer = ServerInitializer.new
-
+	def initialize
 		server = Rack::Builder.new do
 			use ActiveRecord::ConnectionAdapters::ConnectionManagement
 			use ActiveRecord::QueryCache
@@ -35,8 +33,8 @@ class ServerInitializer
 		end
 
 		options = {
-			:BindAddress	=> initializer.setting.server_bind,
-			:Port			=> initializer.setting.server_port,
+			:BindAddress	=> setting.server_bind,
+			:Port			=> setting.server_port,
 			:AccessLog		=> [[WEBrick::Log.new('tmp/log/access.log'), WEBrick::AccessLog::COMBINED_LOG_FORMAT]],
 			:Logger 		=> WEBrick::Log.new('tmp/log/server.log')
 		}
@@ -46,6 +44,6 @@ class ServerInitializer
 			Rack::Handler::WEBrick.run server, options
 		end
 
-		initializer.logger.info "Server started on #{options[:BindAddress]}:#{options[:Port]}"
+		logger.info "Server started on #{options[:BindAddress]}:#{options[:Port]}"
 	end
 end

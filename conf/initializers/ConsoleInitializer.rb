@@ -6,19 +6,16 @@ require 'app/utils/Logging'
 class ConsoleInitializer 
 	include Logging
 
-	def self.start(environment)
-		initializer = ConsoleInitializer.new
-
-		initializer.logger.info 'Starting up to console'
+	def initialize(environment)
+		logger.info 'Starting up console'
 
 		Dir['app/models/*.rb'].each do |f|
 			require f
 		end
-
-		initializer.logger.info 'Models loaded'
+		logger.info 'Models loaded'
 
 		ENV['IRBRC'] = '.irbrc'
-		initializer.logger.info 'Environment variables set'
+		logger.info 'Environment variables set'
 
 		puts "Aggregator console:"
 		IRB.start

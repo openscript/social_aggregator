@@ -36,21 +36,21 @@ class Aggregator
 		logger.info "Using #{options.environment} environment"
 		@@environment = options.environment
 
-		# Set up orm
-		DatabaseInitializer::start(options.environment)
+		# Connect database with orm
+		DatabaseInitializer.new(options.environment)
 
 		unless options.environment == :test || options.console
 			# Set up plugin manager
 			@@plugin_manager = PluginManager.new 
 
-			# Set up server
-			ServerInitializer::start
+			# Spawn new server
+			ServerInitializer.new
 			
 			start
 		end
 
 		if options.console
-			ConsoleInitializer::start(options.environment)
+			ConsoleInitializer.new(options.environment)
 		end
 	end
 
