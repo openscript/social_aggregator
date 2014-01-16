@@ -7,14 +7,14 @@ There are many social networks out there. This software aggregates information f
 Basically the system is designed to be extensible via plugins. It's shipped with the following ones:
 
 ### Social Networks
-- Facebook
-- YouTube
-- Google+
-- Twitter
-- LastFM
+- Facebook (`facebook`)
+- Google+ (`google_plus`)
+- Twitter (`twitter`)
+- LastFM (`lastfm`)
+- YouTube - maybe later
 
 ### Other
-- RSS feeds
+- RSS feeds (`feed`)
 
 ## Outputs
 xml and callbacks
