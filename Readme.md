@@ -62,5 +62,7 @@ Please have a look into the [wiki](https://github.com/openscript/social_aggregat
 
 There is a built-in command line (IRB). You'll have access from there to:
 
-- the models
-- the controllers
+- all models
+
+### Documentation
+You can generate the source code documentation anytime with `yardoc` from the document root. You'll find the generated documentation in `./doc/yard/`.
