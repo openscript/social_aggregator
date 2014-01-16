@@ -3,6 +3,7 @@ require 'digest/md5'
 
 require 'app/plugins/PluginFrame'
 
+# Simple feed reader plugin
 class FeedReader < PluginFrame
 
 	def initialize(plugin_model)
