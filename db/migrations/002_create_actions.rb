@@ -5,7 +5,6 @@ class CreateActions < ActiveRecord::Migration
 		create_table :actions do |t|
 			t.string :name, :null => false
 			t.text :description
-			t.string :reference
 
 			t.references :plugin, :null => false
 
