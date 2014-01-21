@@ -1,5 +1,3 @@
-# Social Aggregator
-
 ![Banner](https://github.com/openscript/social_aggregator/wiki/res/banner.png)
 
 Dear followers!
