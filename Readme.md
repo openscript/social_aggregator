@@ -1,6 +1,6 @@
 # Social Aggregator
 
-![Banner](res/banner.png)
+![Banner](wiki/res/model.png)
 
 Dear followers!
 
