@@ -102,6 +102,7 @@ class PluginManager
 		logger.warn 'Found no useable plugin!' if @plugin_instances.empty?
 	end
 
+	# Search for plugins
 	def search(directory = setting.plugin_folder)
 		plugins = Dir.glob("#{directory}/**")
 

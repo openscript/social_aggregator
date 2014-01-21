@@ -19,7 +19,10 @@ class Aggregator
 	# Defines the version
 	VERSION = '0.0.1' unless const_defined?(:VERSION)
 	
+	# Stores the environment
 	@@environment = :production
+
+	# Stores the run state
 	@@stop = false
 
 	# Initialize the whole system
@@ -91,11 +94,7 @@ class Aggregator
 			end
 			logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
 
-			begin
-				sleep setting.aggregate_timer
-			rescue StandardError => e
-				logger.warn "Sleep was interrupted."
-			end
+			sleep setting.aggregate_timer
 		end
 
 		logger.info "Stopping aggregator - Good bye!"
