@@ -5,12 +5,12 @@ require 'app/models/Message'
 class MessagesController < ApplicationController
 	#Routing
 	get '/' do
-		haml :'messages/index', :locals => {:messages => index}, :layout => :layout
+		index
 	end
 
 	#Controlling
 	def index
-		Message.latest
+		haml :'messages/index', :locals => {:messages => Message.latest}, :layout => :layout
 	end
 
 	def new

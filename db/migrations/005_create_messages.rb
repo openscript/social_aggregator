@@ -6,7 +6,7 @@ class CreateMessages < ActiveRecord::Migration
 			t.string :title, :null => false
 			t.text :summary
 			t.text :content
-			t.string :fingerprint, :null => false
+			t.string :handle, :null => false
 			t.string :reference_url
 			t.datetime :published_at
 
@@ -15,6 +15,6 @@ class CreateMessages < ActiveRecord::Migration
 			t.timestamps
 		end
 
-		add_index(:messages, :fingerprint, :unique => true)
+		add_index(:messages, :handle, :unique => true)
 	end
 end
