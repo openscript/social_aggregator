@@ -1,4 +1,7 @@
 # Social Aggregator
+
+![Banner](res/banner.png)
+
 Dear followers!
 
 There are many social networks out there. This software aggregates information from different networks to one xml-stream, which you can reuse. For instance on your personal website to show some of your activity to your audience or as your personal news feed.
