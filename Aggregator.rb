@@ -16,11 +16,13 @@ class Aggregator
 	include Logging
 	include Setting
 
-	VERSION = '0.0.1'
+	# Defines the version
+	VERSION = '0.0.1' unless const_defined?(:VERSION)
 	
 	@@environment = :production
 	@@stop = false
 
+	# Initialize the whole system
 	def initialize(arguments)
 		options = ArgumentParser.parse(arguments)
 
@@ -54,34 +56,46 @@ class Aggregator
 		end
 	end
 
+	# Returns the current environment
 	def self.environment
 		@@environment
 	end
 
+	# Returns the version number
 	def self.version
 		VERSION
 	end
 
-	def self.shutdown
-		@@stop = true
-	end
-
+	# Returns the plugin manager
 	def self.plugin_manager
 		@@plugin_manager
 	end
 
+	# Shutdown the system
+	def self.shutdown
+		@@stop = true
+	end
+
+	private
+
+	# Starts the aggregation
 	def start
 		logger.info "Aggregator is up and running"
 
 		while true
 			@@plugin_manager.run
+
 			if @@stop
 				logger.info "Stopping aggregation now, due request to stop."
 				break
 			end
 			logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
 
-			sleep setting.aggregate_timer
+			begin
+				sleep setting.aggregate_timer
+			rescue StandardError => e
+				logger.warn "Sleep was interrupted."
+			end
 		end
 
 		logger.info "Stopping aggregator - Good bye!"

@@ -21,7 +21,7 @@ Basically the system is designed to be extensible via plugins. It's shipped with
 xml and callbacks
 
 ## Usage
-Please write a bug report, if errors occure. 
+Please write a bug report or feature requests to improve the software. Send pull requests to be an active user. Thank you very much!
 
 ### Installation
 1. Set up `Ruby` or `JRuby` (real multithreading) and `RubyGems`
@@ -67,3 +67,11 @@ There is a built-in command line (IRB). You'll have access from there to:
 
 ### Documentation
 You can generate the source code documentation anytime with `yardoc` from the document root. You'll find the generated documentation in `./doc/yard/`.
+
+## Other stuff
+Things, which need to be said!
+
+### Note of thanks
+Thanks to all users, who helped to improve the software!
+[Thanks for the icons, which are used in the banner.](http://www.apricum.net/2012/03/22/social-media-icons/)
+[Thanks for the font, which is used in the banner.](http://www.dafont.com/sansation.font)
