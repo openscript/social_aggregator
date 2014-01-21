@@ -79,7 +79,7 @@ class Aggregator
 				logger.info "Stopping aggregation now, due request to stop."
 				break
 			end
-			logger.debug "Next aggregation in #{setting.aggregate_timer} seconds."
+			logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
 
 			sleep setting.aggregate_timer
 		end

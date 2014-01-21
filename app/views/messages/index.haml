@@ -1,7 +1,3 @@
 %messages{:count => locals[:messages].count}
   - locals[:messages].each do |m|
-    %message{:timestamp => m.created_at.to_i, :handle => m.id}
-      %title= m.title
-      %text= m.message
-      %plugin{:handle => m.plugin.id}
-        %name= m.plugin.name
+    = haml :'messages/message', :locals => { :message => m }

@@ -25,7 +25,7 @@ class FeedReader < PluginFrame
 
 		feed = Feedzirra::Feed.fetch_and_parse(feed_url)
 
-		message_category = MessageCategory.find_or_initialize_by(:fingerprint => Digest::MD5.hexdigest(feed.url))
+		message_category = MessageCategory.find_or_initialize_by(:handle => Digest::MD5.hexdigest(feed.url))
 
 		if message_category.action.nil?
 			message_category.action = get_action('aggregate_feed')
@@ -40,14 +40,15 @@ class FeedReader < PluginFrame
 		end
 
 		feed.entries.each do |entry|
-			message = Message.find_or_initialize_by(:fingerprint => Digest::MD5.hexdigest(entry.url))
+			message = Message.find_or_initialize_by(:handle => Digest::MD5.hexdigest(entry.url))
 			message.message_category = message_category
 
-			if message.published_at.nil? || message.published_at < message.published
+			if message.published_at.nil? || message.published_at < entry.published
 				message.published_at = entry.published
 				message.summary = entry.summary
 				message.content = entry.content
 				message.title = entry.title
+				message.reference_url = entry.url
 			end
 
 			message.save!
