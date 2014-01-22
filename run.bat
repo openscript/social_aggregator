@@ -1,14 +1,21 @@
 @echo off
 
-where /Q jruby
+where /Q ruby
+set jruby=%ERRORLEVEL%
 
-if %ERRORLEVEL% NEQ 0 (
-	echo Please install jruby and add it to the system variable!
-	pause
-	exit
+where /Q jruby
+set ruby=%ERRORLEVEL%
+
+if "%jruby%;%ruby%" EQU "1;1" (
+	echo "Please install a ruby environment."
 )
 
-if %ERRORLEVEL% EQU 0 (
+if %ruby% EQU 0 (
+	echo Starting social aggregator . . .
+	ruby aggregator.rb -e production
+)
+
+if %jruby% EQU 0 (
 	echo Starting social aggregator . . .
 	jruby aggregator.rb -e production
 )
