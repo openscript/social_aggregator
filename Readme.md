@@ -21,6 +21,9 @@ Basically the system is designed to be extensible via plugins. It's shipped with
 xml and callbacks
 
 ## Usage
+Right now the aggregator supports the following platform:
+- Ruby 2.1 on Linux
+
 Please write a bug report or feature requests to improve the software. Send pull requests to be an active user. Thank you very much!
 
 ### Installation
@@ -29,7 +32,7 @@ Please write a bug report or feature requests to improve the software. Send pull
 3. Run `bundle install` to install all the necesserily gems
 4. Run `rake install` to get the social aggregator ready
 5. Set up and configure plugins/providers
-6. Execute the `Aggregator.rb` (e. g. `jruby Aggregator.rb -h`) and have fun!
+6. Execute the `Aggregator.rb` (e. g. `ruby Aggregator.rb -h`) and have fun!
 
 ### Tasks
 The following rake tasks are defined:
