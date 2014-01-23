@@ -18,23 +18,31 @@ class FeedReader < PluginFrame
 
 	# Aggregate feeds
 	def aggregate_feeds
-		setting.feeds.each{ |feed| aggregate_feed feed }
+		action = get_action('feed_aggregation')
+		time_until_aggregation =  Time.now - Log.where(loggable: action).order(:created_at).last.created_at
+
+		if time_until_aggregation > setting.sleep_timer
+			log = Log.new(loggable: action, title: "Aggregating feeds.").save!
+			setting.feeds.each{ |feed| aggregate_feed(feed, action)}
+		else
+			logger.info "Possible aggregation in #{setting.sleep_timer - time_until_aggregation} seconds."
+		end
 	end
 
 	# Aggregate feed
-	def aggregate_feed(feed_url)
+	def aggregate_feed(feed_url, action)
 		title = "Aggregating from #{feed_url}."
 		logger.info title
 
 		# Parse feed data.
 		feed = Feedzirra::Feed.fetch_and_parse(feed_url)
 
-		# Find message_category, which belongs to this feed.
+		# Find message category, which belongs to this feed.
 		message_category = MessageCategory.find_or_initialize_by(handle: Digest::MD5.hexdigest(feed.url))
 
 		# Set action to this message category, if it's nil.
 		if message_category.action.nil?
-			message_category.action = get_action('feed_aggregation')
+			message_category.action = action
 		end
 
 		# Set name of this message category.
@@ -72,10 +80,12 @@ class FeedReader < PluginFrame
 		end
 
 		# Persist/update messages
-		Message.transaction do
-			messages.each do |m|
-				m.save!
-				logger.info "Persisted new/updated message (#{m.title})."
+		if messages.count > 0
+			Message.transaction do
+				messages.each do |m|
+					m.save!
+					logger.info "Persisted new/updated message (#{m.title})."
+				end
 			end
 		end
 	end
