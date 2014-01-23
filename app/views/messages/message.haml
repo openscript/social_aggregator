@@ -1,5 +1,10 @@
 - m = locals[:message]
 %message{created_at: m.created_at, updated_at: m.updated_at, published_at: m.published_at, handle: m.handle, reference_url: m.reference_url}
-	%title= m.title
-	%summary= m.summary
-	%content= m.content
+  %title= m.title
+  %summary
+    :cdata
+      #{m.summary}
+  - unless m.content.nil?
+    %content
+      :cdata
+        #{m.content}
