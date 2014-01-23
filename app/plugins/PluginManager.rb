@@ -63,12 +63,12 @@ class PluginManager
 		logger.info "Found #{plugins.count} valid plugins."
 
 		plugins.each do |p|
-			plugin = Plugin.find_or_initialize_by(:name => p.name)
+			plugin = Plugin.find_or_initialize_by(name: p.name)
 
 			plugin.update_attributes(
-				:class_name => p.class_name,
-				:conf_path => p.conf_path,
-				:class_path => p.class_path
+				class_name: p.class_name,
+				conf_path: p.conf_path,
+				class_path: p.class_path
 			)
 
 			@plugin_definitions << plugin

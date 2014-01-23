@@ -8,19 +8,19 @@ class ApplicationController < Sinatra::Base
 	set :views, "app/views"
 
 	before do
-		content_type 'text/xml', :charset => 'utf-8'
+		content_type 'text/xml', charset: 'utf-8'
 	end
 	
 	# Routing
 	get '/' do
-		content_type 'text/html', :charset => 'utf-8'
-		haml :index, :layout => false, :locals => {:version => Aggregator::version}
+		content_type 'text/html', charset: 'utf-8'
+		haml :index, layout: false, locals: {version: Aggregator::version}
 	end
 
 	# Errror handling
 	not_found do
-		content_type 'text/html', :charset => 'utf-8'
-		haml :'404', :layout => false, :locals => {:version => Aggregator::version}
+		content_type 'text/html', charset: 'utf-8'
+		haml :'404', layout: false, locals: {version: Aggregator::version}
 	end
 
 	# Controlling 

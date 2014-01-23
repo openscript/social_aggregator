@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
 
 	#Controlling
 	def index
-		haml :'messages/index', :locals => {:messages => Message.latest}, :layout => :layout
+		haml :'messages/index', layout: :layout, locals: {:messages => Message.latest}
 	end
 
 	def new
