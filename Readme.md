@@ -34,12 +34,12 @@ Please write a bug report or feature requests to improve the software. Send pull
 ### Tasks
 The following rake tasks are defined:
 
-`rake [task]`
+`rake aggregator:[task]`
 
 | task       | parameter        | description                 |
 |:----------:|:---------------- |:----------------------------|
 | `migrate`  | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`)<br /><code>[ver=(*version number*)]</code><br /> (default: last version) | Initialize/Migrate database |
-
+| `install`  | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`)<br /><code>[ver=(*version number*)]</code><br /> (default: last version) | Set up the environment for aggregator |
 
 ### Run with built-in server
 You can utilize the aggregator directly via commandline. It uses a built in webrick server in this case. It's planned that other servers can be used, but that is not implemented yet.
