@@ -2,6 +2,7 @@ require 'celluloid/autostart'
 
 require 'app/models/Plugin'
 require 'app/models/Action'
+require 'app/models/Log'
 require 'app/models/Message'
 require 'app/models/MessageCategory'
 require 'app/models/Follower'
