@@ -3,7 +3,7 @@ require 'sinatra/namespace'
 require 'haml'
 
 class ApplicationController < Sinatra::Base
-	#Setting
+	# Settings
 	set :logging, false				# disable rack logging, because webrick is logging this already to a log file
 	set :views, "app/views"
 
@@ -11,13 +11,19 @@ class ApplicationController < Sinatra::Base
 		content_type 'text/xml', :charset => 'utf-8'
 	end
 	
-	#Routing
+	# Routing
 	get '/' do
 		content_type 'text/html', :charset => 'utf-8'
 		haml :index, :layout => false, :locals => {:version => Aggregator::version}
 	end
 
-	#Controlling 
+	# Errror handling
+	not_found do
+		content_type 'text/html', :charset => 'utf-8'
+		haml :'404', :layout => false, :locals => {:version => Aggregator::version}
+	end
+
+	# Controlling 
 	def index
 	end
 end

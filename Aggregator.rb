@@ -1,10 +1,7 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-require 'yaml'
-
 require 'conf/initializers/DatabaseInitializer'
 require 'conf/initializers/ConsoleInitializer'
-require 'conf/initializers/ServerInitializer'
 require 'app/plugins/PluginManager'
 require 'app/utils/ArgumentParser'
 require 'app/utils/Logging'
@@ -26,10 +23,11 @@ class Aggregator
 	@@stop = false
 
 	# Initialize the whole system
-	def initialize(arguments)
+	def initialize(internal_server = false, arguments = [])
 		options = ArgumentParser.parse(arguments)
 
 		Logging::environment options.environment
+
 		# Set up logger
 		if options.quiet
 			Logging::quiet = true
@@ -48,8 +46,12 @@ class Aggregator
 			# Set up plugin manager
 			@@plugin_manager = PluginManager.new 
 
-			# Spawn new server
-			ServerInitializer.new
+			if internal_server
+				require 'conf/initializers/ServerInitializer'
+				
+				# Spawn new server
+				ServerInitializer.new
+			end
 			
 			start
 		end
@@ -103,5 +105,5 @@ end
 
 # Initialize aggregator
 if __FILE__ == $PROGRAM_NAME
-	app = Aggregator.new(ARGV)
+	app = Aggregator.new(true, ARGV)
 end

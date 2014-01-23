@@ -1,8 +1,6 @@
 require 'Aggregator'
 require 'app/utils/Logging'
 require 'app/utils/Setting'
-require 'app/controllers/MessagesController'
-require 'app/controllers/PluginsController'
 require 'conf/router'
 
 require 'sinatra/base'
@@ -19,17 +17,7 @@ class ServerInitializer
 			use ActiveRecord::ConnectionAdapters::ConnectionManagement
 			use ActiveRecord::QueryCache
 
-			map '/' do 
-				run ApplicationController.new
-			end
-
-			map '/messages' do 
-				run MessagesController.new
-			end
-
-			map '/plugins' do 
-				run PluginsController.new
-			end
+			run Router.map
 		end
 
 		options = {
