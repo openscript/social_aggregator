@@ -16,13 +16,14 @@ Basically the system is designed to be extensible via plugins. It's shipped with
 
 ### Other
 - RSS feeds (`feed`)
+  - dosen't work on Windows at the moment
 
 ## Outputs
 xml and callbacks
 
 ## Usage
 Right now the aggregator supports the following platform:
-- Ruby 2.1 on Linux
+- Ruby 2.1 on Linux and Windows
 
 Please write a bug report or feature requests to improve the software. Send pull requests to be an active user. Thank you very much!
 
@@ -76,5 +77,9 @@ Things, which need to be said!
 
 ### Note of thanks
 Thanks to all users, who helped to improve the software!
-[Thanks for the icons, which are used in the banner.](http://www.apricum.net/2012/03/22/social-media-icons/)
-[Thanks for the font, which is used in the banner.](http://www.dafont.com/sansation.font)
+
+- [Thanks for the icons, which are used in the banner.](http://www.apricum.net/2012/03/22/social-media-icons/)
+- [Thanks for the font, which is used in the banner.](http://www.dafont.com/sansation.font)
+- [Thanks for the twitter gem, which is used in the twitter plugin.](http://rubygems.org/gems/twitter)
+- [Thanks for the feedzirra gem, which is used in the feed plugin.](http://rubygems.org/gems/feedzirra)
+- [Thanks for the lastfm gem, which is used in the lastfm plugin.](http://rubygems.org/gems/lastfm)

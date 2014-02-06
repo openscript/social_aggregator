@@ -1,4 +1,5 @@
 require 'celluloid'
+require 'digest/md5'
 
 require 'app/models/Plugin'
 require 'app/models/Action'

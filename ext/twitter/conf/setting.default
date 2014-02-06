@@ -1,8 +1,12 @@
 defaults: &defaults
   plugin_name: 'Twitter'
   class_name: 'Twitter'
+  follower_timer: 86400
+  tweet_timer: 600
   consumer_key: '321'
   consumer_secret: '123'
+  access_token: '456'
+  access_token_secret: '654'
 
 development:
   <<: *defaults

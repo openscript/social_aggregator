@@ -1,5 +1,4 @@
 require 'feedzirra'
-require 'digest/md5'
 
 require 'app/plugins/PluginFrame'
 
@@ -19,10 +18,10 @@ class FeedReader < PluginFrame
 	# Aggregate feeds
 	def aggregate_feeds
 		action = get_action('feed_aggregation')
-		time_until_aggregation =  Time.now - Log.where(loggable: action).order(:created_at).last.created_at
+		time_until_aggregation = action.last_occurance
 
 		if time_until_aggregation > setting.sleep_timer
-			log = Log.new(loggable: action, title: "Aggregating feeds.").save!
+			Log.new(loggable: action, title: "Aggregating feeds.").save!
 			setting.feeds.each{ |feed| aggregate_feed(feed, action)}
 		else
 			logger.info "Possible aggregation in #{setting.sleep_timer - time_until_aggregation} seconds."
@@ -56,7 +55,7 @@ class FeedReader < PluginFrame
 		end
 
 		# Write log about activity.
-		log = Log.new(loggable: message_category, title: title).save!
+		Log.new(loggable: message_category, title: title).save!
 
 		# Parse entries to records and check, if the entry is already in the database.
 		messages = []
