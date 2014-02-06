@@ -35,6 +35,19 @@ Please write a bug report or feature requests to improve the software. Send pull
 5. Set up and configure plugins/providers
 6. Execute the `Aggregator.rb` (e. g. `ruby Aggregator.rb -h`) and have fun!
 
+### Upgrade
+If your copy is still linked with this git repository, then you can follow this two steps:
+
+1. Run `git remote update` to update the Social Aggreator
+2. Run `rake aggregator:migrate` to migrate the database to the updates version.
+
+### Sensitive data
+Please use file access restriction to protect your sensitive data:
+- Plugin configuration files, which contain api keys
+- Database, which contains all personal data
+
+Please protect the REST API from foreign access.
+
 ### Tasks
 The following rake tasks are defined:
 
