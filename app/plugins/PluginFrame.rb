@@ -1,4 +1,4 @@
-require 'celluloid/autostart'
+require 'celluloid'
 
 require 'app/models/Plugin'
 require 'app/models/Action'
@@ -12,9 +12,9 @@ require 'app/utils/Logging'
 require 'app/utils/Setting'
 
 class PluginFrame
-	include Celluloid
 	include Setting
 	include Logging
+	include Celluloid
 
 	finalizer :unload
 

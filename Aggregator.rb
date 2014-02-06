@@ -13,8 +13,8 @@ class Aggregator
 	include Logging
 	include Setting
 
-	# Defines the version
-	VERSION = '0.0.1' unless const_defined?(:VERSION)
+	# The version constant
+	AGGREGATOR_VERSION = '0.0.1' unless const_defined?(:AGGREGATOR_VERSION)
 	
 	# Stores the environment
 	@@environment = :production
@@ -53,6 +53,12 @@ class Aggregator
 				ServerInitializer.new
 			end
 			
+			logger.info "Aggregator is up and running"
+
+			Signal.trap("SIGINT") do
+				Thread.current.exit
+			end
+
 			start
 		end
 
@@ -68,7 +74,7 @@ class Aggregator
 
 	# Returns the version number
 	def self.version
-		VERSION
+		AGGREGATOR_VERSION
 	end
 
 	# Returns the plugin manager
@@ -85,21 +91,17 @@ class Aggregator
 
 	# Starts the aggregation
 	def start
-		logger.info "Aggregator is up and running"
+		@@plugin_manager.run
 
-		while true
-			@@plugin_manager.run
-
-			if @@stop
-				logger.info "Stopping aggregation now, due request to stop."
-				break
-			end
-			logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
-
-			sleep setting.aggregate_timer
+		if @@stop
+			logger.info "Stopping aggregation now, due request to stop."
+			return
 		end
 
-		logger.info "Stopping aggregator - Good bye!"
+		logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
+
+		sleep setting.aggregate_timer
+		start
 	end
 end
 

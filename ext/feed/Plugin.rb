@@ -75,7 +75,7 @@ class FeedReader < PluginFrame
 
 			if message.changed?
 				messages << message
-				logger.debug "Message has changed and will be updated soon."
+				logger.debug "Message is new or changed. It will be persisted soon."
 			end
 		end
 

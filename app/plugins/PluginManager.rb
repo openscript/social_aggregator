@@ -1,13 +1,17 @@
+require 'celluloid'
+
 require 'app/models/Plugin'
 
 require 'app/utils/Logging'
 require 'app/utils/Setting'
 
 require 'app/plugins/PluginValidator'
+require 'app/plugins/PluginWorker'
 
 class PluginManager
 	include Logging
 	include Setting
+	include Celluloid
 
 	# Stores all valid plugin models
 	@plugin_definitions
@@ -39,11 +43,14 @@ class PluginManager
 			logger.info 'No plugins loaded to aggregate data from.'
 			Aggregator::shutdown
 			return
+		elsif loaded_plugins.count > 2
+			pool_size = loaded_plugins.count
+		else
+			pool_size = 2
 		end
 
-		loaded_plugins.each do |p|
-			p.run
-		end
+		plugin_worker = PluginWorker.pool(size: pool_size)
+		loaded_plugins.map { |p| plugin_worker.future.run(p) }.map(&:value)
 	end
 
 	private
@@ -87,7 +94,7 @@ class PluginManager
 
 			begin
 				if Object::const_get(p.class_name).ancestors.include? PluginFrame
-					instance = Object::const_get(p.class_name).new(p)
+					instance = Object::const_get(p.class_name).spawn(p)
 					@plugin_instances << instance
 					logger.info "Plugin #{p.name} initialized"
 				else

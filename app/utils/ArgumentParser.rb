@@ -12,7 +12,7 @@ class ArgumentParser
 		arguments.console = false
 
 		parser = OptionParser.new do |parser|
-			parser.banner = "Social Aggregator - Version: #{Aggregator::VERSION}\nInitiated by http://openscript.ch/\n\nUsage: aggregator.rb [arguments]"
+			parser.banner = "Social Aggregator - Version: #{Aggregator::AGGREGATOR_VERSION}\nInitiated by http://openscript.ch/\n\nUsage: aggregator.rb [arguments]"
 			parser.separator ''
 
 			parser.on('-e [name]', '--environment [name]', [:development, :test, :production], 'Select an environment', '(development, test or production)') do |e|
@@ -37,7 +37,7 @@ class ArgumentParser
 			end
 
 			parser.on('--version', 'Show version') do
-				puts Aggregator::VERSION
+				puts Aggregator::AGGREGATOR_VERSION
 				exit
 			end
 

@@ -17,7 +17,7 @@ class ApplicationController < Sinatra::Base
 		haml :index, layout: false, locals: {version: Aggregator::version}
 	end
 
-	# Errror handling
+	# Error handling
 	not_found do
 		content_type 'text/html', charset: 'utf-8'
 		haml :'404', layout: false, locals: {version: Aggregator::version}
