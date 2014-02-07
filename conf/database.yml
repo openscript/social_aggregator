@@ -6,7 +6,7 @@ defaults: &defaults
   encoding: utf8
   pool: 5
   timeout: 5000
-  wait_timeout: 50
+  wait_timeout: 500
 
 development:
   <<: *defaults

@@ -24,7 +24,7 @@ class TwitterPlugin < PluginFrame
 
 		tweets_action = get_action('twitter_tweet_aggregation')
 		if action_ready?(tweets_action, setting.tweet_timer) 
-			aggregate_tweets
+			aggregate_tweets(tweets_action)
 		end
 	end
 
@@ -65,7 +65,7 @@ class TwitterPlugin < PluginFrame
 		Log.new(loggable: action, title: "Aggregating Twitter messages.").save!
 
 		# Find message category, which belongs to this twitter messages.
-		message_category = MessageCategory.find_or_initialize_by(handle: Digest::MD5.hexdigest(@twitter.user.id))
+		message_category = MessageCategory.find_or_initialize_by(handle: Digest::MD5.hexdigest(@twitter.user.id.to_s))
 
 		# Set action to this message category, if it's nil.
 		if message_category.action.nil?
