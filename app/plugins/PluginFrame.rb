@@ -39,6 +39,6 @@ class PluginFrame
 	protected
 
 	def get_action(name)
-		Action.find_or_initialize_by(name: name, plugin: @plugin)
+		Action.find_or_create_by!(name: name, plugin: @plugin)
 	end
 end
