@@ -38,7 +38,19 @@ class PluginFrame
 
 	protected
 
+	# Returns a persisted action by given name
 	def get_action(name)
 		Action.find_or_create_by!(name: name, plugin: @plugin)
+	end
+
+	# Return whether last action occurance was before given time
+	def action_ready?(action, timer)
+		time_until_aggregation = action.last_occurance
+
+		unless time_until_aggregation.nil? || time_until_aggregation < timer
+			logger.info "Possible aggregation in #{setting.follower_timer - time_until_aggregation} seconds."
+			return false
+		end
+		return true
 	end
 end

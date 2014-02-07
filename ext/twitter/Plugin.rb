@@ -17,22 +17,17 @@ class TwitterPlugin < PluginFrame
 	end
 
 	def run
-		aggregate_followers
+		followers_action = get_action('twitter_follower_aggregation')
+		if action_ready?(followers_action, setting.follower_timer)
+			aggregate_followers(followers_action)
+		end
 		aggregate_tweets
 	end
 
 	private
 
 	# Aggregate followers
-	def aggregate_followers
-		action = get_action('twitter_follower_aggregation')
-		time_until_aggregation = action.last_occurance
-
-		unless time_until_aggregation.nil? || time_until_aggregation < setting.follower_timer
-			logger.info "Possible aggregation in #{setting.follower_timer - time_until_aggregation} seconds."
-			return
-		end
-
+	def aggregate_followers(action)
 		Log.new(loggable: action, title: "Aggregating Twitter followers.").save!
 		
 		followers = []

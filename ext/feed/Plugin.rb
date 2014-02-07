@@ -10,22 +10,18 @@ class FeedReader < PluginFrame
 	end
 
 	def run
-		aggregate_feeds
+		feeds_action = get_action('feed_aggregation')
+		if action_ready?(feeds_action, setting.sleep_timer)
+			aggregate_feeds feeds_action
+		end
 	end
 
 	private
 
 	# Aggregate feeds
-	def aggregate_feeds
-		action = get_action('feed_aggregation')
-		time_until_aggregation = action.last_occurance
-
-		if time_until_aggregation.nil? || time_until_aggregation > setting.sleep_timer
-			Log.new(loggable: action, title: "Aggregating feeds.").save!
-			setting.feeds.each{ |feed| aggregate_feed(feed, action)}
-		else
-			logger.info "Possible aggregation in #{setting.sleep_timer - time_until_aggregation} seconds."
-		end
+	def aggregate_feeds(action)
+		Log.new(loggable: action, title: "Aggregating feeds.").save!
+		setting.feeds.each{ |feed| aggregate_feed(feed, action)}
 	end
 
 	# Aggregate feed
