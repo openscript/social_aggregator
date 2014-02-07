@@ -11,7 +11,7 @@ class Action < ActiveRecord::Base
 	def last_occurance
 		last_log = self.logs.order(:created_at).last
 		unless last_log.nil?
-			Time.now - self.logs.order(:created_at).last.created_at
+			Time.now - last_log.created_at
 		else
 			nil
 		end

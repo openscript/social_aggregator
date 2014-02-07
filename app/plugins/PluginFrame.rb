@@ -45,10 +45,10 @@ class PluginFrame
 
 	# Return whether last action occurance was before given time
 	def action_ready?(action, timer)
-		time_until_aggregation = action.last_occurance
+		time_since_last_occurance = action.last_occurance
 
-		unless time_until_aggregation.nil? || time_until_aggregation < timer
-			logger.info "Possible aggregation in #{setting.follower_timer - time_until_aggregation} seconds."
+		unless time_since_last_occurance.nil? || time_since_last_occurance > timer
+			logger.info "Possible aggregation in #{timer - time_since_last_occurance} seconds."
 			return false
 		end
 		return true
