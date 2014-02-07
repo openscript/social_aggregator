@@ -21,7 +21,11 @@ class TwitterPlugin < PluginFrame
 		if action_ready?(followers_action, setting.follower_timer)
 			aggregate_followers(followers_action)
 		end
-		aggregate_tweets
+
+		tweets_action = get_action('twitter_tweet_aggregation')
+		if action_ready?(tweets_action, setting.tweet_timer) 
+			aggregate_tweets
+		end
 	end
 
 	private
@@ -57,6 +61,60 @@ class TwitterPlugin < PluginFrame
 	end
 
 	# Aggregate tweets
-	def aggregate_tweets
+	def aggregate_tweets(action)
+		Log.new(loggable: action, title: "Aggregating Twitter messages.").save!
+
+		# Find message category, which belongs to this twitter messages.
+		message_category = MessageCategory.find_or_initialize_by(handle: Digest::MD5.hexdigest(@twitter.user.id))
+
+		# Set action to this message category, if it's nil.
+		if message_category.action.nil?
+			message_category.action = action
+		end
+
+		# Set name of this message category.
+		if message_category.name.nil? || message_category.name.empty?
+			message_category.name = @twitter.user.name
+		end
+
+		# Save message category, if it's necessery.
+		unless message_category.persisted?
+			message_category.save!
+		end
+
+		# Write log about activity.
+		Log.new(loggable: message_category, title: "Aggregating Twitter messages.").save!
+
+		# Parse tweets to records and check, if the tweet is already in the database.
+		messages = []
+
+		# Aggregate tweets
+		@twitter.user_timeline.each do |tweet|
+			message = Message.find_or_initialize_by(handle: Digest::MD5.hexdigest(tweet.id))
+			message.message_category = message_category
+
+			if message.published_at.nil? || message.published_at < tweet.created_at
+				message.published_at = tweet.created_at
+				message.content = tweet.text
+				message.title = tweet.text
+				message.reference_url = entry.url.to_s
+			end
+
+			if message.changed?
+				messages << message
+				logger.debug "Tweet is new or changed. It will be persisted soon."
+			end
+		end
+
+		# Persist/update tweets
+		if messages.count > 0
+			Message.transaction do
+				messages.each do |m|
+					m.save!
+					logger.info "Persisted new/updated message (#{m.title})."
+				end
+			end
+		end
+
 	end
 end
