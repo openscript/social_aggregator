@@ -41,7 +41,7 @@ end
 
 # plugin dependencies 
 
-gem 'twitter' # https://rubygems.org/gems/twitter
+gem 'twitter', '~> 5.6.0' # https://rubygems.org/gems/twitter
 gem 'fb_graph'
 gem 'google_plus'
 gem 'lastfm' # https://rubygems.org/gems/lastfm
