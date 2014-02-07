@@ -1,6 +1,7 @@
 defaults: &defaults
   plugin_name: 'Twitter'
   class_name: 'Twitter'
+  active: true
   follower_timer: 86400
   tweet_timer: 600
   consumer_key: '321'

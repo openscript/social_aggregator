@@ -3,7 +3,7 @@ require 'twitter'
 require 'app/plugins/PluginFrame'
 
 # Plugin to aggregate twitter data
-class Twitter < PluginFrame
+class TwitterPlugin < PluginFrame
 
 	def initialize(plugin_model)
 		super plugin_model
@@ -28,7 +28,7 @@ class Twitter < PluginFrame
 		action = get_action('twitter_follower_aggregation')
 		time_until_aggregation = action.last_occurance
 
-		if time_until_aggregation < setting.follower_timer
+		unless time_until_aggregation.nil? || time_until_aggregation < setting.follower_timer
 			logger.info "Possible aggregation in #{setting.follower_timer - time_until_aggregation} seconds."
 			return
 		end
@@ -38,7 +38,16 @@ class Twitter < PluginFrame
 		followers = []
 
 		@twitter.followers.each do |f|
-			follower = Follower.find_or_initialize_by(username: f.user_id)
+			follower = Follower.find_or_initialize_by(username: f.id)
+			follower.name = f.name
+			follower.profile_url = f.url.to_s
+			follower.image_url = f.profile_image_url_https.to_s
+			follower.action = action
+
+			if follower.changed?
+				followers << follower
+				logger.debug "Follower is new or changed. It will be persisted soon."
+			end
 		end
 
 		# Persist/update followers
@@ -46,7 +55,7 @@ class Twitter < PluginFrame
 			Follower.transaction do
 				followers.each do |f|
 					f.save!
-					logger.info "Persisted new/updated follower (#{f.title})."
+					logger.info "Persisted new/updated follower (#{f.name})."
 				end
 			end
 		end

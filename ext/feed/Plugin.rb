@@ -20,7 +20,7 @@ class FeedReader < PluginFrame
 		action = get_action('feed_aggregation')
 		time_until_aggregation = action.last_occurance
 
-		if time_until_aggregation > setting.sleep_timer
+		if time_until_aggregation.nil? || time_until_aggregation > setting.sleep_timer
 			Log.new(loggable: action, title: "Aggregating feeds.").save!
 			setting.feeds.each{ |feed| aggregate_feed(feed, action)}
 		else

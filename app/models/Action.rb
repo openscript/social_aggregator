@@ -9,6 +9,11 @@ class Action < ActiveRecord::Base
 
 	# Returns the time in seconds to the last occurance
 	def last_occurance
-		Time.now - self.logs.order(:created_at).last.created_at
+		last_log = self.logs.order(:created_at).last
+		unless last_log.nil?
+			Time.now - self.logs.order(:created_at).last.created_at
+		else
+			nil
+		end
 	end
 end
