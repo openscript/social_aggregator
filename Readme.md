@@ -96,3 +96,8 @@ Thanks to all users, who helped to improve the software!
 - [Thanks for the twitter gem, which is used in the twitter plugin.](http://rubygems.org/gems/twitter)
 - [Thanks for the feedzirra gem, which is used in the feed plugin.](http://rubygems.org/gems/feedzirra)
 - [Thanks for the lastfm gem, which is used in the lastfm plugin.](http://rubygems.org/gems/lastfm)
+
+### Copyright
+This projected is licensed under the terms of the GPL v3 license. Please consult the license file for further information.
+
+Copyright © 2013 - 2014 Robin Bühler
