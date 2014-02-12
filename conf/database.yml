@@ -1,20 +1,39 @@
 # Use jdbc-adapter on a jruby platform. (for example: jdbcsqlite3)
 
 defaults: &defaults
-  adapter: sqlite3
-  database: db/production.sqlite3
-  encoding: utf8
   pool: 5
-  timeout: 5000
-  wait_timeout: 500
+
+  # SQLite
+  #adapter: sqlite3
+  #database: db/production.sqlite3
+  #encoding: utf8
+  #timeout: 5000
+  #wait_timeout: 500
+
+  # PostgreSQL
+  adapter: postgresql
+  encoding: unicode
+  database: aggregator
+  username: aggregator
+  password: aggregator
 
 development:
   <<: *defaults
-  database: db/development.sqlite3
+
+  # SQLite
+  #database: db/development.sqlite3
+
+  # PostgreSQL
+  database: aggregator_development
 
 test:
   <<: *defaults
-  database: db/test.sqlite3
+
+  # SQLite
+  #database: db/test.sqlite3
+
+  # PostgreSQL
+  database: aggregator_test
 
 production:
   <<: *defaults

@@ -3,6 +3,7 @@ require 'yaml'
 require 'active_record'
 require 'logger'
 require 'bundler'
+require 'database_cleaner'
 
 namespace :aggregator do
 	desc 'Migrate migrations to database'
@@ -27,6 +28,14 @@ namespace :aggregator do
 		ActiveRecord::Base.logger = Logger.new(STDOUT)
 		ActiveRecord::Base.establish_connection(ENV['env'] ? ENV['env'] : 'defaults')
 		ActiveRecord::Migrator.down('db/migrations', ENV['ver'] ? ENV['ver'].to_i : nil)	
+	end
+
+	desc 'Truncate database'
+	task :truncate do
+		ActiveRecord::Base.configurations = YAML.load_file('conf/database.yml')
+		ActiveRecord::Base.logger = Logger.new(STDOUT)
+		ActiveRecord::Base.establish_connection(ENV['env'] ? ENV['env'] : 'defaults')
+		DatabaseCleaner.clean_with :truncation
 	end
 
 	desc 'Install the environment for the aggregator'

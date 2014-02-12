@@ -45,13 +45,15 @@ class FeedReader < PluginFrame
 			message_category.name = feed.title
 		end
 
-		# Save message category, if it's necessery.
-		unless message_category.persisted?
-			message_category.save!
-		end
+		Log.transaction do
+			# Save message category, if it's necessery.
+			unless message_category.persisted?
+				message_category.save!
+			end
 
-		# Write log about activity.
-		Log.new(loggable: message_category, title: title).save!
+			# Write log about activity.
+			Log.new(loggable: message_category, title: title).save!
+		end
 
 		# Parse entries to records and check, if the entry is already in the database.
 		messages = []

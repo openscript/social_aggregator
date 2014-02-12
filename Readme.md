@@ -28,12 +28,18 @@ Right now the aggregator supports the following platform:
 Please write a bug report or feature requests to improve the software. Send pull requests to be an active user. Thank you very much!
 
 ### Installation
-1. Set up `Ruby` or `JRuby` (real multithreading) and `RubyGems`
+1. Set up `Ruby` or `JRuby` (real multithreading), `RubyGems` and a supported database system
 2. Get your version of the social aggregator and change to it's directory
 3. Run `bundle install` to install all the necesserily gems
 4. Run `rake install` to get the social aggregator ready
 5. Set up and configure plugins/providers
 6. Execute the `Aggregator.rb` (e. g. `ruby Aggregator.rb -h`) and have fun!
+
+#### Setup PostgreSQL
+1. Connect to database
+2. Add a role for aggregator: `CREATE ROLE aggregator WITH CREATEDB LOGIN PASSWORD 'aggregator';`
+3. Create database: `CREATE DATABASE aggregator OWNER aggregator;`
+4. Setup suitable authentication for created role
 
 ### Upgrade
 If your copy is still linked with this git repository, then you can follow this two steps:

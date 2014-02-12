@@ -22,9 +22,12 @@ if RUBY_PLATFORM =~ /java/ #jruby
 		gem 'ruby-debug'
 	end
 else # ruby
-	gem 'sqlite3'
+	#gem 'sqlite3'
+	gem 'pg'
+
 	gem 'activerecord', '>= 4'
 	gem 'activesupport', '>= 4'
+	gem 'database_cleaner'
 
 	group :development do
 		gem 'debugger'

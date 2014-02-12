@@ -37,7 +37,7 @@ class TwitterPlugin < PluginFrame
 		followers = []
 
 		@twitter.followers.each do |f|
-			follower = Follower.find_or_initialize_by(username: f.id)
+			follower = Follower.find_or_initialize_by(username: f.id.to_s)
 			follower.name = f.name
 			follower.profile_url = f.url.to_s
 			follower.image_url = f.profile_image_url_https.to_s
@@ -62,8 +62,6 @@ class TwitterPlugin < PluginFrame
 
 	# Aggregate tweets
 	def aggregate_tweets(action)
-		Log.new(loggable: action, title: "Aggregating Twitter messages.").save!
-
 		# Find message category, which belongs to this twitter messages.
 		message_category = MessageCategory.find_or_initialize_by(handle: Digest::MD5.hexdigest(@twitter.user.id.to_s))
 
@@ -77,27 +75,30 @@ class TwitterPlugin < PluginFrame
 			message_category.name = @twitter.user.name
 		end
 
-		# Save message category, if it's necessery.
-		unless message_category.persisted?
-			message_category.save!
-		end
+		Log.transaction do
+			# Save message category, if it's necessery.
+			unless message_category.persisted?
+				message_category.save!
+			end
 
-		# Write log about activity.
-		Log.new(loggable: message_category, title: "Aggregating Twitter messages.").save!
+			# Write log about activity.
+			Log.new(loggable: message_category, title: "Aggregating Twitter messages to #{message_category.name} category.").save!
+			Log.new(loggable: action, title: "Aggregating Twitter messages.").save!
+		end
 
 		# Parse tweets to records and check, if the tweet is already in the database.
 		messages = []
 
 		# Aggregate tweets
 		@twitter.user_timeline.each do |tweet|
-			message = Message.find_or_initialize_by(handle: Digest::MD5.hexdigest(tweet.id))
+			message = Message.find_or_initialize_by(handle: Digest::MD5.hexdigest(tweet.id.to_s))
 			message.message_category = message_category
 
 			if message.published_at.nil? || message.published_at < tweet.created_at
 				message.published_at = tweet.created_at
 				message.content = tweet.text
 				message.title = tweet.text
-				message.reference_url = entry.url.to_s
+				message.reference_url = tweet.url.to_s
 			end
 
 			if message.changed?
