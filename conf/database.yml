@@ -17,13 +17,20 @@ defaults: &defaults
   username: aggregator
   password: aggregator
 
+  # MySQL
+  #adapter: mysql2
+  #encoding: unicode
+  #database: aggregator
+  #username: aggregator
+  #password: aggregator
+
 development:
   <<: *defaults
 
   # SQLite
   #database: db/development.sqlite3
 
-  # PostgreSQL
+  # PostgreSQL / MySQL
   database: aggregator_development
 
 test:
@@ -32,7 +39,7 @@ test:
   # SQLite
   #database: db/test.sqlite3
 
-  # PostgreSQL
+  # PostgreSQL / MySQL
   database: aggregator_test
 
 production:
