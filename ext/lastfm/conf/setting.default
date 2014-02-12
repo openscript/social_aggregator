@@ -1,12 +1,12 @@
 defaults: &defaults
   plugin_name: 'last.fm'
-  class_name: 'LastFm'
+  class_name: 'LastfmPlugin'
   username: '..'
   consumer_key: '..'
   consumer_secret: '..'
   consumer_token: '..'
-  consumer_session: '..'
-  sleep_timer: 900
+  #consumer_session: '..'
+  sleep_timer: 86400
 
 development:
   <<: *defaults
