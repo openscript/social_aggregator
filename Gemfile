@@ -44,11 +44,19 @@ end
 
 # plugin dependencies 
 
+# Twitter
 gem 'twitter', '~> 5.6.0' # https://rubygems.org/gems/twitter
-gem 'fb_graph'
+
+# Facebook
+gem 'koala'
+
+# Google Plus
 gem 'google_plus'
+
+# LastFm
 gem 'lastfm' # https://rubygems.org/gems/lastfm
 
+# Feed
 unless RUBY_PLATFORM =~ /java/ #ruby
 	gem 'feedzirra' # Curb is not available for jruby, so this gem won't work with jruby.
 end

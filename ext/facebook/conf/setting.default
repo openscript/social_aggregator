@@ -1,6 +1,10 @@
 defaults: &defaults
   plugin_name: 'Facebook'
-  class_name: 'Facebook'
+  class_name: 'FacebookPlugin'
+  active: true
+  access_token: '...'
+  sleep_timer: 86400
+  page_name: 'your_page_name'
 
 development:
   <<: *defaults

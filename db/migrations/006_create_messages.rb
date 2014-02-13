@@ -3,9 +3,9 @@ require 'active_record'
 class CreateMessages < ActiveRecord::Migration
 	def up
 		create_table :messages do |t|
-			t.string :title, null: false
+			t.string :title
 			t.text :summary
-			t.text :content
+			t.text :content, null: false
 			t.string :handle, null: false
 			t.string :reference_url
 			t.datetime :published_at

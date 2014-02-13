@@ -2,7 +2,6 @@ defaults: &defaults
   plugin_name: 'last.fm'
   class_name: 'LastfmPlugin'
   active: true
-  username: '..'
   consumer_key: '..'
   consumer_secret: '..'
   consumer_token: '..'

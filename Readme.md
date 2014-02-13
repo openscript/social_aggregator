@@ -63,6 +63,7 @@ The following rake tasks are defined:
 |:----------:|:---------------- |:----------------------------|
 | `migrate`  | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`)<br /><code>[ver=(*version number*)]</code><br /> (default: last version) | Initialize/Migrate database |
 | `install`  | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`)<br /><code>[ver=(*version number*)]</code><br /> (default: last version) | Set up the environment for aggregator |
+| `truncate` | <code>[env=(development&#124;test&#124;production)]</code><br /> (default: `production`) | Truncate database (all data from database). |
 
 ### Run with built-in server
 You can utilize the aggregator directly via commandline. It uses a built in webrick server in this case. It's planned that other servers can be used, but that is not implemented yet.
