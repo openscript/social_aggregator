@@ -1,10 +1,13 @@
 - m = locals[:message]
-%message{created_at: m.created_at, updated_at: m.updated_at, published_at: m.published_at, handle: m.handle, reference_url: m.reference_url}
-  %title= m.title
-  %summary
-    :cdata
-      #{m.summary}
+%message{created_at: m.created_at.iso8601, updated_at: m.updated_at.iso8601, published_at: m.published_at.iso8601, handle: m.handle, reference_url: m.reference_url}
+  - unless m.title.nil?
+    %title= m.title
+  - unless m.summary.nil?
+    %summary
+      :cdata
+        #{m.summary}
   - unless m.content.nil?
     %content
       :cdata
         #{m.content}
+    = haml :'plugins/plugin', locals: { plugin: m.message_category.action.plugin }

@@ -1,6 +1,6 @@
 require 'app/controllers/ApplicationController'
 
-require 'app/models/Message'
+require 'app/models/Plugin'
 
 class PluginsController < ApplicationController
 	#Routing
@@ -14,7 +14,7 @@ class PluginsController < ApplicationController
 
 	#Controlling
 	def index
-		haml :'plugins/index', layout: :layout, locals: {plugins: Aggregator::plugin_manager}
+		haml :'plugins/index', layout: :layout, locals: {plugins: Plugin.all}
 	end
 
 	def view(name)

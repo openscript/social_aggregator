@@ -7,7 +7,6 @@ require 'app/models/Log'
 require 'app/models/Message'
 require 'app/models/MessageCategory'
 require 'app/models/Follower'
-require 'app/models/AggregateAction'
 
 require 'app/utils/Logging'
 require 'app/utils/Setting'

@@ -1,0 +1,5 @@
+- p = locals[:plugin]
+%plugin{created_at: p.created_at.iso8601, updated_at: p.updated_at.iso8601}
+  %name= p.name
+  %class= p.class_name
+  %path= p.class_path

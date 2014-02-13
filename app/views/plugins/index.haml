@@ -1,7 +1,3 @@
-%plugins
-  %defined
-    - locals[:plugins].defined_plugins.each do |p|
-      %name= p.name
-  %loaded
-    - locals[:plugins].loaded_plugins.each do |p|
-      %name= p.class.name
+%plugins{count: locals[:plugins].count}
+  - locals[:plugins].each do |p|
+    = haml :'plugins/plugin', locals: { plugin: p }
