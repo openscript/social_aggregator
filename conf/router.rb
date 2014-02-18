@@ -1,9 +1,9 @@
 require 'rack'
 require 'sinatra/base'
 
-require 'app/controllers/ApplicationController'
-require 'app/controllers/MessagesController'
-require 'app/controllers/PluginsController'
+require 'app/controllers/application_controller'
+require 'app/controllers/messages_controller'
+require 'app/controllers/plugins_controller'
 
 module Router
 	def self.map

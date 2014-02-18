@@ -5,7 +5,7 @@ defaults: &defaults
   server_port: 12001
   plugin_folder: 'ext'
   plugin_configuration: 'conf/setting.yml'
-  plugin_class_file: 'Plugin.rb'
+  plugin_class_file: 'plugin.rb'
 
 development:
   <<: *defaults
