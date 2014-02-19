@@ -13,20 +13,10 @@ class PluginManager
 	include Setting
 	include Celluloid
 
-	# Stores all valid plugin models
-	@plugin_definitions
-
-	# Stores all plugin instances (threads)
-	@plugin_instances
-
 	attr_reader :plugin_definitions, :plugin_instances
 
 	def initialize
 		logger.info 'Initializing plugin manager'
-
-		@plugin_definitions = []
-		@plugin_instances = []
-
 		initialize_plugins
 	end
 
