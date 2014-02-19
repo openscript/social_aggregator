@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
+require 'conf/initializers/server_initializer'
 require 'conf/initializers/database_initializer'
 require 'conf/initializers/console_initializer'
 require 'app/plugins/plugin_manager'
@@ -19,39 +20,30 @@ class Aggregator
 	# Stores the environment
 	@@environment = :production
 
-	# Stores the run state
-	@@stop = false
+	attr_reader :stop
 
 	# Initialize the whole system
 	def initialize(internal_server = false, arguments = [])
 		options = ArgumentParser.parse(arguments)
 
-		Logging::environment options.environment
-
-		# Set up logger
-		if options.quiet
-			Logging::quiet = true
-		end
-
-		logger.info 'Starting up aggregator now'
-
 		# Set environment to setting
 		logger.info "Using #{options.environment} environment"
 		@@environment = options.environment
 
+		Logging::environment @@environment
+		Logging::quiet = true if options.quiet
+
+		logger.info 'Starting up aggregator now'
+
 		# Connect database with orm
 		DatabaseInitializer.new(options.environment)
 
-		unless options.environment == :test || options.console
-			# Set up plugin manager
+		if options.console
+			ConsoleInitializer.new(options.environment)
+		elsif @@environment != :test
 			@@plugin_manager = PluginManager.new 
 
-			if internal_server
-				require 'conf/initializers/server_initializer'
-				
-				# Spawn new server
-				ServerInitializer.new
-			end
+			ServerInitializer.new if internal_server
 			
 			logger.info "Aggregator is up and running"
 
@@ -60,10 +52,6 @@ class Aggregator
 			end
 
 			start
-		end
-
-		if options.console
-			ConsoleInitializer.new(options.environment)
 		end
 	end
 
@@ -84,7 +72,7 @@ class Aggregator
 
 	# Shutdown the system
 	def self.shutdown
-		@@stop = true
+		@stop = true
 	end
 
 	private
@@ -93,7 +81,7 @@ class Aggregator
 	def start
 		@@plugin_manager.run
 
-		if @@stop
+		if @stop
 			logger.info "Stopping aggregation now, due request to stop."
 			return
 		end
@@ -105,7 +93,6 @@ class Aggregator
 	end
 end
 
-# Initialize aggregator
 if __FILE__ == $PROGRAM_NAME
 	app = Aggregator.new(true, ARGV)
 end
