@@ -79,17 +79,13 @@ class Aggregator
 
 	# Starts the aggregation
 	def start
-		@@plugin_manager.run
+		until @stop
+			@@plugin_manager.run
 
-		if @stop
-			logger.info "Stopping aggregation now, due request to stop."
-			return
+			logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
+
+			sleep setting.aggregate_timer
 		end
-
-		logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
-
-		sleep setting.aggregate_timer
-		start
 	end
 end
 
