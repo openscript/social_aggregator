@@ -9,7 +9,7 @@ class PluginValidator
 	include Logging
 	include Setting
 
-	REQUIRED_ATTR = %w(plugin_name class_name)
+	REQUIRED_ATTRS = %w(plugin_name class_name)
 
 	def self.validate(path)
 		validator = self.new
@@ -49,7 +49,7 @@ class PluginValidator
 		end
 
 		# Check if there are the required options.
-		REQUIRED_ATTR.each do |a|
+		REQUIRED_ATTRS.each do |a|
 			unless conf[Aggregator::environment.to_s].has_key? a
 				validator.logger.error "Unfortunately the plugin configuration file #{conf_path} dosen't include an attribute, which is called #{a} and required."
 				return

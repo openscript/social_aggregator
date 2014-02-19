@@ -16,23 +16,10 @@ class PluginFrame
 	include Logging
 	include Celluloid
 
-	finalizer :unload
-
 	def initialize(plugin_model)
 		@plugin = plugin_model
 
 		settings_path @plugin.conf_path
-
-		logger.info "The plugin #{@plugin.name} has been initialized."
-	end
-
-	def run
-		logger.warn "The plugin #{@plugin.name} is not implemented!"
-		terminate
-	end
-
-	def unload
-		logger.warn "The plugin #{@plugin.name} is terminating!"
 	end
 
 	protected
@@ -46,10 +33,12 @@ class PluginFrame
 	def action_ready?(action, timer)
 		time_since_last_occurance = action.last_occurance
 
-		unless time_since_last_occurance.nil? || time_since_last_occurance > timer
+		status = time_since_last_occurance && time_since_last_occurance <= timer
+
+		unless status
 			logger.info "Possible aggregation in #{timer - time_since_last_occurance} seconds."
-			return false
 		end
-		return true
+
+		status
 	end
 end

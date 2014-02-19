@@ -19,6 +19,8 @@ class PluginManager
 	# Stores all plugin instances (threads)
 	@plugin_instances
 
+	attr_reader :plugin_definitions, :plugin_instances
+
 	def initialize
 		logger.info 'Initializing plugin manager'
 
@@ -28,80 +30,58 @@ class PluginManager
 		initialize_plugins
 	end
 
-	def defined_plugins
-		@plugin_definitions
-	end
-
-	def loaded_plugins
-		@plugin_instances
-	end
-
 	def run
 		logger.debug 'Aggregating data from plugins.'
 
-		if loaded_plugins.count <= 0
+		if plugin_instances.count <= 0
 			logger.info 'No plugins loaded to aggregate data from.'
 			Aggregator::shutdown
 			return
-		elsif loaded_plugins.count > 2
-			pool_size = loaded_plugins.count
+		elsif plugin_instances.count > 2
+			pool_size = plugin_instances.count
 		else
 			pool_size = 2
 		end
 
 		plugin_worker = PluginWorker.pool(size: pool_size)
-		loaded_plugins.map { |p| plugin_worker.future.run(p) }.map(&:value)
+		plugin_instances.map { |p| plugin_worker.future.run(p) }.map(&:value)
 	end
 
 	private
 
 	def initialize_plugins
-		plugins = []
 		logger.info 'Initializing plugins'
 
-		search.each do |p|
-			plugin = PluginValidator::validate p
-
-			unless plugin.nil?
-				plugins << plugin
-			end
-		end
-
+		plugins = search_for_plugins.map{ |p| PluginValidator::validate p }.compact
 		logger.info "Found #{plugins.count} valid plugins."
 
-		plugins.each do |p|
-			plugin = Plugin.find_or_initialize_by(name: p.name)
-
-			plugin.update_attributes(
-				class_name: p.class_name,
-				conf_path: p.conf_path,
-				class_path: p.class_path
-			)
-
-			@plugin_definitions << plugin
+		@plugin_definitions = plugins.map do |p|
+			Plugin.find_or_initialize_by(name: p.name).tap do |m|
+				m.update_attributes(
+					class_name: p.class_name,
+					conf_path: p.conf_path,
+					class_path: p.class_path
+				)
+			end
 		end
-
 		logger.info 'Persisted plugin information.' if plugins.count > 0
 
-		@plugin_definitions.each do |p|
+		@plugin_instances = plugin_definitions.map do |p|
 			begin
 				require p.class_path
-			rescue => e
-				logger.warn "Couldn't parse file #{p.class_path}. Aggregator is not able to use the #{p.name} plugin."
-				logger.debug e
-				next
-			end
-
-			begin
-				if Object::const_get(p.class_name).ancestors.include? PluginFrame
-					instance = Object::const_get(p.class_name).spawn(p)
-					@plugin_instances << instance
-					logger.info "Plugin #{p.name} initialized"
-				else
-					raise
+				begin
+					stub = Object::const_get(p.class_name)
+					if stub.ancestors.include?(PluginFrame) && stub.methods.include?(:run)
+						stub.spawn(p)
+					else
+						raise
+					end
+				rescue => e
+					logger.warn "Couldn't instantiate class #{p.class_name}, class is not a plugin or it doesn't contain a run method. Aggregator is not able to use the #{p.name} plugin."
+					logger.debug e
 				end
 			rescue => e
-				logger.warn "Couldn't instantiate class #{p.class_name} or class is not a plugin. Aggregator is not able to use the #{p.name} plugin."
+				logger.warn "Couldn't parse file #{p.class_path}. Aggregator is not able to use the #{p.name} plugin."
 				logger.debug e
 			end
 		end
@@ -109,16 +89,14 @@ class PluginManager
 		logger.warn 'Found no useable plugin!' if @plugin_instances.empty?
 	end
 
-	# Search for plugins
-	def search(directory = setting.plugin_folder)
-		plugins = Dir.glob("#{directory}/**")
-
-		if Aggregator::environment == :development
-			plugins.each do |p|
-				logger.debug "Found plugin folder #{p}. Validating plugin now."
+	# Search for plugins in a given directory
+	def search_for_plugins(directory = setting.plugin_folder)
+		Dir.glob("#{directory}/**").tap do |plugins|
+			if Aggregator::environment == :development
+				plugins.each do |plugin|
+					logger.debug "Found plugin folder #{plugin}. Validating plugin now."
+				end
 			end
 		end
-
-		plugins
 	end
 end
