@@ -18,11 +18,6 @@ class PluginsController < ApplicationController
 	end
 
 	def view(name)
-		plugins = Aggregator::plugin_manager.loaded_plugins.map{ |i| i.class.name.parameterize}
-		if plugins.include? name.parameterize
-			haml :'plugins/view', locals: {plugin: "bla"}, layout: :layout
-		else
-			404
-		end
+		haml :'plugins/view', layout: :layout, locals: {:plugin => Plugin.find_by(name: handle)}
 	end
 end
