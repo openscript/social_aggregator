@@ -14,7 +14,7 @@ class FollowersController < ApplicationController
 
 	#Controlling
 	def index
-		haml :'followers/index', layout: :layout, locals: {:follower => Follower.latest}
+		haml :'followers/index', layout: :layout, locals: {:followers => Follower.latest}
 	end
 
 	def view(params)
