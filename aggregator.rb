@@ -14,11 +14,11 @@ class Aggregator
 	include Logging
 	include Setting
 
-	# The version constant
+	# Set aggregator version
 	AGGREGATOR_VERSION = '0.0.1' unless const_defined?(:AGGREGATOR_VERSION)
 	
-	# Stores the environment
-	@@environment = :production
+	# Set default environment
+	@environment = :production
 
 	attr_reader :stop
 
@@ -26,22 +26,20 @@ class Aggregator
 	def initialize(internal_server = false, arguments = [])
 		options = ArgumentParser.parse(arguments)
 
-		# Set environment to setting
 		logger.info "Using #{options.environment} environment"
-		@@environment = options.environment
+		Aggregator.environment = options.environment
 
-		Logging::environment @@environment
+		Logging::environment Aggregator.environment
 		Logging::quiet = true if options.quiet
 
 		logger.info 'Starting up aggregator now'
 
-		# Connect database with orm
 		DatabaseInitializer.new(options.environment)
 
 		if options.console
 			ConsoleInitializer.new(options.environment)
-		elsif @@environment != :test
-			@@plugin_manager = PluginManager.new 
+		elsif Aggregator.environment != :test
+			Aggregator.plugin_manager = PluginManager.new 
 
 			ServerInitializer.new if internal_server
 			
@@ -55,19 +53,14 @@ class Aggregator
 		end
 	end
 
-	# Returns the current environment
+	# Returns the environment
 	def self.environment
-		@@environment
-	end
-
-	# Returns the version number
-	def self.version
-		AGGREGATOR_VERSION
+		@environment
 	end
 
 	# Returns the plugin manager
 	def self.plugin_manager
-		@@plugin_manager
+		@plugin_manager
 	end
 
 	# Shutdown the system
@@ -77,10 +70,17 @@ class Aggregator
 
 	private
 
-	# Starts the aggregation
+	def self.environment=(value)
+		@environment = value
+	end
+
+	def self.plugin_manager=(value)
+		@plugin_manager = value
+	end
+
 	def start
 		until @stop
-			@@plugin_manager.run
+			Aggregator.plugin_manager.run
 
 			logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
 
