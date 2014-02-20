@@ -1,6 +1,5 @@
 require 'celluloid'
 require 'digest/md5'
-require 'byebug'
 
 require 'app/models/plugin'
 require 'app/models/action'
@@ -34,6 +33,6 @@ class PluginFrame
 	def action_ready?(action, timer)
 		time_since_last_occurance = action.last_occurance || 0
 
-		time_since_last_occurance <= timer
+		time_since_last_occurance >= timer
 	end
 end

@@ -62,7 +62,7 @@ class PluginManager
 				begin
 					stub = Object::const_get(p.class_name)
 					if stub.ancestors.include?(PluginFrame) && stub.methods.include?(:run)
-						stub.spawn(p)
+						stub.new(p)
 					else
 						raise
 					end
