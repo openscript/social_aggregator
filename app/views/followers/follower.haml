@@ -10,3 +10,4 @@
   - unless f.image_url.nil?
     %imageUrl
       = f.image_url
+  = haml :'plugins/plugin', locals: { plugin: f.action.plugin }

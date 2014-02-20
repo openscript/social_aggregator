@@ -1,6 +1,6 @@
 defaults: &defaults
   plugin_name: 'Twitter'
-  class_name: 'Twitter'
+  class_name: 'TwitterPlugin'
   active: true
   follower_timer: 86400
   tweet_timer: 600

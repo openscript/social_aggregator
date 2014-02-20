@@ -37,11 +37,10 @@ class TwitterPlugin < PluginFrame
 		followers = []
 
 		@twitter.followers.each do |f|
-			follower = Follower.find_or_initialize_by(username: f.id.to_s)
+			follower = Follower.find_or_initialize_by(username: f.id.to_s, action: action)
 			follower.name = f.name
 			follower.profile_url = f.url.to_s
 			follower.image_url = f.profile_image_url_https.to_s
-			follower.action = action
 
 			if follower.changed?
 				followers << follower
