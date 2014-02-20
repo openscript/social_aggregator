@@ -1,5 +1,6 @@
 require 'celluloid'
 require 'digest/md5'
+require 'byebug'
 
 require 'app/models/plugin'
 require 'app/models/action'
@@ -31,14 +32,8 @@ class PluginFrame
 
 	# Return whether last action occurance was before given time
 	def action_ready?(action, timer)
-		time_since_last_occurance = action.last_occurance
+		time_since_last_occurance = action.last_occurance || 0
 
-		status = time_since_last_occurance && time_since_last_occurance <= timer
-
-		unless status
-			logger.info "Possible aggregation in #{timer - time_since_last_occurance} seconds."
-		end
-
-		status
+		time_since_last_occurance <= timer
 	end
 end

@@ -30,7 +30,7 @@ else # ruby
 	gem 'database_cleaner'
 
 	group :development do
-		gem 'debugger'
+		gem 'byebug'
 	end
 end
 
