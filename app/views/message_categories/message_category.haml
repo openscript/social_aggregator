@@ -1,0 +1,7 @@
+- c = locals[:message_category]
+%messageCategory{created_at: c.created_at.iso8601, updated_at: c.updated_at.iso8601, handle: c.handle}
+  %name
+    = c.name
+  - unless c.description.nil?
+    %description
+      = c.description

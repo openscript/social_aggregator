@@ -1,0 +1,3 @@
+%message_categories{count: locals[:message_categories].count}
+  - locals[:message_categories].each do |c|
+    = haml :'message_categories/message_category', locals: { message_category: c }
