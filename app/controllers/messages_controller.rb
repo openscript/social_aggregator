@@ -8,6 +8,10 @@ class MessagesController < ApplicationController
 		index
 	end
 
+	get '/:handle' do
+		view(params[:handle])
+	end
+
 	#Controlling
 	def index
 		haml :'messages/index', layout: :layout, locals: {:messages => Message.latest}
@@ -19,5 +23,9 @@ class MessagesController < ApplicationController
 
 	def create(message)
 		puts message
+	end
+
+	def view(handle)
+		haml :'messages/view', layout: :layout, locals: {:message => Message.find_by(handle: handle)}
 	end
 end

@@ -6,8 +6,7 @@
     %summary
       :cdata
         #{m.summary}
-  - unless m.content.nil?
-    %content
-      :cdata
-        #{m.content}
-    = haml :'plugins/plugin', locals: { plugin: m.message_category.action.plugin }
+  %content
+    :cdata
+      #{m.content}
+  = haml :'plugins/plugin', locals: { plugin: m.message_category.action.plugin }

@@ -82,8 +82,7 @@ class Aggregator
 		until @stop
 			Aggregator.plugin_manager.run
 
-			logger.debug "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
-
+			logger.info "Aggregation done. Next aggregation in #{setting.aggregate_timer} seconds."
 			sleep setting.aggregate_timer
 		end
 	end

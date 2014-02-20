@@ -1,0 +1,3 @@
+%messages{count: locals[:logs].count}
+  - locals[:logs].each do |l|
+    = haml :'logs/log', locals: { message: l }

@@ -14,13 +14,13 @@ class ApplicationController < Sinatra::Base
 	# Routing
 	get '/' do
 		content_type 'text/html', charset: 'utf-8'
-		haml :index, layout: false, locals: {version: Aggregator::version}
+		haml :index, layout: false, locals: {version: Aggregator::AGGREGATOR_VERSION}
 	end
 
 	# Error handling
 	not_found do
 		content_type 'text/html', charset: 'utf-8'
-		haml :'404', layout: false, locals: {version: Aggregator::version}
+		haml :'404', layout: false, locals: {version: Aggregator::AGGREGATOR_VERSION}
 	end
 
 	# Controlling 

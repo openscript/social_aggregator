@@ -34,7 +34,7 @@ class PluginManager
 		end
 
 		plugin_worker = PluginWorker.pool(size: pool_size)
-		plugin_instances.map { |p| plugin_worker.future.run(p) }.map(&:value)
+		plugin_instances.map{ |p| plugin_worker.future.run(p) }.map(&:value)
 	end
 
 	private

@@ -1,0 +1,8 @@
+- l = locals[:log]
+%log{created_at: l.created_at.iso8601, updated_at: l.updated_at.iso8601}
+  - unless l.title.nil?
+    %title
+      = l.title
+  - unless l.description.nil?
+    %description
+      = l.description
