@@ -1,0 +1,12 @@
+- f = locals[:follower]
+%follower{created_at: f.created_at.iso8601, updated_at: f.updated_at.iso8601}
+  %username
+    = f.username
+  - unless f.name.nil?
+    %name
+      = f.name
+  %profileUrl
+    = f.profile_url
+  - unless f.image_url.nil?
+    %imageUrl
+      = f.image_url
