@@ -6,6 +6,8 @@ class Action < ActiveRecord::Base
 	has_many :followers
 	has_many :message_categories
 	has_many :logs, as: :loggable
+	
+	scope :latest, -> { limit(20) }
 
 	# Returns the time in seconds to the last occurance
 	def last_occurance

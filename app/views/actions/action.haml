@@ -1,0 +1,7 @@
+- a = locals[:action]
+%follower{created_at: a.created_at.iso8601, updated_at: a.updated_at.iso8601}
+  %name
+    = a.name
+  - unless a.description.nil?
+    %description
+      = a.description

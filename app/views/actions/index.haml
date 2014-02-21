@@ -1,0 +1,3 @@
+%actions{count: locals[:actions].count}
+  - locals[:actions].each do |a|
+    = haml :'actions/action', locals: { action: a }
