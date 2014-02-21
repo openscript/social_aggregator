@@ -5,3 +5,4 @@
   - unless c.description.nil?
     %description
       = c.description
+  = haml :'actions/action', locals: { action: c.action }

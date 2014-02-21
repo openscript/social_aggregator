@@ -9,4 +9,4 @@
   %content
     :cdata
       #{m.content}
-  = haml :'plugins/plugin', locals: { plugin: m.message_category.action.plugin }
+  = haml :'message_categories/message_category', locals: { message_category: m.message_category }
