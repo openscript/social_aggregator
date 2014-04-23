@@ -96,6 +96,9 @@ You can generate the source code documentation anytime with `yardoc` from the do
 Things, which need to be said!
 
 ### Note of thanks
+![Rubymine](https://github.com/openscript/social_aggregator/wiki/res/contrib/rubymine.png)
+[Thank you JetBrains to providing us a license for our open source project.](http://www.jetbrains.com/ruby/)
+
 Thanks to all users, who helped to improve the software!
 
 - [Thanks for the icons, which are used in the banner.](http://www.apricum.net/2012/03/22/social-media-icons/)

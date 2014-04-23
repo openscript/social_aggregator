@@ -3,18 +3,22 @@ require 'app/controllers/application_controller'
 require 'app/models/message'
 
 class MessagesController < ApplicationController
-	#Routing
+	# Routing
 	get '/' do
-		index
+		index(Message.latest)
+	end
+
+	get %r{/(^\d{0,3})} do
+		index(Message.limit(params[:captures].first))
 	end
 
 	get '/:handle' do
-		view(params[:handle])
+		view(Message.find_by(handle: params[:handle]))
 	end
 
 	#Controlling
-	def index
-		haml :'messages/index', layout: :layout, locals: {:messages => Message.latest}
+	def index(records)
+		haml :'messages/index', layout: :layout, locals: {:messages => records}
 	end
 
 	def new
@@ -25,7 +29,7 @@ class MessagesController < ApplicationController
 		puts message
 	end
 
-	def view(handle)
-		haml :'messages/view', layout: :layout, locals: {:message => Message.find_by(handle: handle)}
+	def view(record)
+		haml :'messages/view', layout: :layout, locals: {:message => record}
 	end
 end
